@@ -1,0 +1,14 @@
+# This folder holds a full copy of the DreamHost site, but git (and the deploy) covers only the public pages.
+# Everything is ignored by default, and each public path is un-ignored below.
+# Never un-ignore site/ (WordPress, including wp-config.php with database passwords).
+/*
+!/.gitignore
+!/index.html
+!/css/
+/css/*
+!/css/global.css
+!/resume/
+/resume/*
+!/resume/index.php
+!/resume/schomp_resume.pdf
+!/resume/schomp_resume-2023.pdf

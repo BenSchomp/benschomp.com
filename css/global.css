@@ -1,0 +1,78 @@
+
+body {
+  background-color: #55879f;
+  /* old background colors: #8c98a7 #83a9bc #55879f */
+  font-family: times;
+  font-style: normal;
+  font-size: large;
+  color: #fffdd0;
+}
+
+h1 {
+  font-family: times;
+  font-size: x-large;
+}
+
+.footnote {
+  font-family: georgia;
+  font-style: italic;
+  font-size: small;
+}
+
+#header {
+  float: left;
+    color: #fffdd0;
+}
+
+a:link { color: #fffdd0; text-decoration: none; }
+a:visited { color: #fffdd0; text-decoration: none; }
+a:hover { color: #fffdd0; text-decoration: underline; }
+a:active { color: #fffdd0; text-decoration: none; }
+
+#main {
+    position: relative;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#photo {
+  float: left;
+}
+
+.video {
+  position: relative;
+  top: 100px;
+}
+
+.paypal {
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    width: 425px;
+    border: 0px solid black;
+    padding: 5px;
+    color: #3D3916;
+    background-color: #ECD7BA;
+}
+
+.paypal a {
+    font-size: x-large;
+    font-style: bold;
+    color: #DB6537;
+}
+
+.paypal table {
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #3D3916;
+}
+
+.paypal input {
+    margin-left: auto;
+    margin-right: auto;
+    color: #3D3916;
+}
+
+
