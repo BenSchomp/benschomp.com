@@ -1,0 +1,48 @@
+# Builds the site (including every project in projects.json) and uploads it to DreamHost.
+# Runs on every push to main, or by hand from the Actions tab ("Run workflow"), with an optional dry run.
+# One-time setup is in README.md.
+name: Deploy to DreamHost
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run: list what would change without uploading"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Load the deploy key
+        env:
+          DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+          DEPLOY_SSH_KNOWN_HOSTS: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
+        run: |
+          test -n "$DEPLOY_SSH_PRIVATE_KEY" || { echo "Missing secret DEPLOY_SSH_PRIVATE_KEY"; exit 1; }
+          test -n "$DEPLOY_SSH_KNOWN_HOSTS" || { echo "Missing secret DEPLOY_SSH_KNOWN_HOSTS"; exit 1; }
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$DEPLOY_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+      - name: Build and upload
+        env:
+          DEPLOY_SSH_TARGET: ${{ secrets.DEPLOY_SSH_TARGET }}
+          # The deploy key is locked to the site folder by rrsync, so paths are relative to it.
+          DEPLOY_REMOTE_PATH: ./
+          DRY_RUN_FLAG: ${{ inputs.dry_run && '--dry-run' || '' }}
+        run: DEPLOY_SSH_KEY_FILE="$HOME/.ssh/deploy_key" python3 deploy.py upload $DRY_RUN_FLAG

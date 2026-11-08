@@ -3,6 +3,8 @@
 # Never un-ignore site/ (WordPress, including wp-config.php with database passwords).
 /*
 !/.gitignore
+!/.github/
+!/README.md
 !/deploy.py
 !/projects.json
 !/index.html
