@@ -1,0 +1,15 @@
+{
+  "_about": "Projects that live in their own repos and get built into this site on every deploy. Each one is cloned at the latest commit of its branch, built, and published under publish_path.",
+  "projects": [
+    {
+      "name": "Yoshi vs. Monsters",
+      "git_url": "https://github.com/BenSchomp/Yoshi-vs-Monsters.git",
+      "branch": "master",
+      "local_clone_path": "~/git/games/Yoshi-vs-Monsters",
+      "install_command": "python3 -m pip install --quiet pygbag==0.9.3",
+      "build_command": "python3 -m pygbag --build --ume_block 0 --template web-template.tmpl --title \"Yoshi vs. Monsters\" .",
+      "build_output_folder": "build/web",
+      "publish_path": "yoshi"
+    }
+  ]
+}
