@@ -25,7 +25,7 @@ from the Actions tab ("Run workflow"), with a dry run option that lists what wou
 To deploy from your Mac instead:
 
 ```sh
-DEPLOY_SSH_TARGET=user@server.dreamhost.com DEPLOY_REMOTE_PATH=benschomp.com/ python3 deploy.py upload --dry-run
+DEPLOY_SSH_TARGET=bschomp@<the server you ssh to> DEPLOY_REMOTE_PATH=www/benschomp.com/ python3 deploy.py upload --dry-run
 ```
 
 ## Add a project
@@ -44,16 +44,16 @@ Then link to it from `index.html` if you want.
 1. Make a key just for deploys, with no passphrase:
    `ssh-keygen -t ed25519 -N "" -f ~/.ssh/benschomp_deploy`
 2. On DreamHost, add the public key to `~/.ssh/authorized_keys`, locked to the site folder
-   with `rrsync`, so the key can only rsync into `~/benschomp.com/` and nothing else:
+   with `rrsync`, so the key can only rsync into `~/www/benschomp.com/` and nothing else:
 
    ```
-   command="rrsync ~/benschomp.com",restrict ssh-ed25519 AAAA... benschomp-deploy
+   command="/usr/bin/rrsync ~/www/benschomp.com",restrict ssh-ed25519 AAAA... benschomp-deploy
    ```
 
-   If `rrsync` isn't on the server's PATH, it usually ships with rsync's docs,
-   for example `/usr/share/doc/rsync/scripts/rrsync`. Copy it to `~/bin/` and make it executable.
+   DreamHost has it at `/usr/bin/rrsync`. If `~/.ssh` is new, `chmod 700 ~/.ssh` and
+   `chmod 600 ~/.ssh/authorized_keys`, or sshd ignores the file.
 3. In the GitHub repo, under Settings > Secrets and variables > Actions, add:
    - `DEPLOY_SSH_PRIVATE_KEY`: the contents of `~/.ssh/benschomp_deploy`
-   - `DEPLOY_SSH_TARGET`: your DreamHost `user@server`
+   - `DEPLOY_SSH_TARGET`: your DreamHost `user@server` (the same one you `ssh` to)
    - `DEPLOY_SSH_KNOWN_HOSTS`: the output of `ssh-keyscan <server>`
 4. Run the workflow by hand with dry run checked, and read the list before the first real deploy.

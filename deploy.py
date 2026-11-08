@@ -21,7 +21,7 @@ Usage:
 
 Upload settings come from environment variables:
   DEPLOY_SSH_TARGET   user@host, for example ben@benschomp.com's DreamHost server
-  DEPLOY_REMOTE_PATH  folder on the server, for example benschomp.com/
+  DEPLOY_REMOTE_PATH  folder on the server, for example www/benschomp.com/
                       (with an rrsync-restricted key, use ./)
   DEPLOY_SSH_KEY_FILE optional private key file for ssh
 """
@@ -128,7 +128,7 @@ def upload_site(dry_run):
     ssh_target = os.environ.get("DEPLOY_SSH_TARGET")
     remote_path = os.environ.get("DEPLOY_REMOTE_PATH")
     if not ssh_target or not remote_path:
-        raise SystemExit("Set DEPLOY_SSH_TARGET (user@host) and DEPLOY_REMOTE_PATH (for example benschomp.com/) first.")
+        raise SystemExit("Set DEPLOY_SSH_TARGET (user@host) and DEPLOY_REMOTE_PATH (for example www/benschomp.com/) first.")
     ssh_command = "ssh -o StrictHostKeyChecking=accept-new"
     if os.environ.get("DEPLOY_SSH_KEY_FILE"):
         ssh_command += f' -i {os.environ["DEPLOY_SSH_KEY_FILE"]}'
