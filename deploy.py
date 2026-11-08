@@ -4,8 +4,9 @@
 The site is assembled in _site/ from two sources:
   1. The files tracked in this repo (see .gitignore for which pages those are).
   2. The projects listed in projects.json. Each lives in its own repo and is
-     cloned at the latest commit of its branch, built, and copied to its
-     publish_path (for example Yoshi vs. Monsters goes to /yoshi/).
+     cloned at its git_ref (a branch for the latest work, or a tag to pin a
+     version), built, and copied to its publish_path (for example Yoshi vs.
+     Monsters goes to /yoshi/).
 
 Uploading only ever adds or updates the files in _site/. It never deletes
 anything on the server, so the rest of the DreamHost folder is left alone.
@@ -80,16 +81,22 @@ def build_project(project, use_local_clones, temporary_clones_folder):
     else:
         project_source_folder = Path(temporary_clones_folder) / Path(project["local_clone_path"]).name
         run_shell_command(
-            f'git clone --quiet --depth 1 --branch {project["branch"]} {project["git_url"]} "{project_source_folder}"',
+            f'git -c advice.detachedHead=false clone --quiet --depth 1 --branch {project["git_ref"]} {project["git_url"]} "{project_source_folder}"',
             temporary_clones_folder,
         )
     if project.get("install_command"):
         run_shell_command(project["install_command"], project_source_folder)
-    run_shell_command(project["build_command"], project_source_folder)
+    if project.get("build_command"):
+        run_shell_command(project["build_command"], project_source_folder)
     build_output_folder = project_source_folder / project["build_output_folder"]
     if not build_output_folder.is_dir():
         raise FileNotFoundError(f"Build finished but {build_output_folder} does not exist")
-    shutil.copytree(build_output_folder, ASSEMBLED_SITE_FOLDER / project["publish_path"])
+    shutil.copytree(
+        build_output_folder,
+        ASSEMBLED_SITE_FOLDER / project["publish_path"],
+        symlinks=True,
+        ignore=shutil.ignore_patterns(".git", ".gitignore"),
+    )
 
 
 def build_site(use_local_clones):

@@ -30,8 +30,13 @@ DEPLOY_SSH_TARGET=user@server.dreamhost.com DEPLOY_REMOTE_PATH=benschomp.com/ py
 
 ## Add a project
 
-Add an entry to `projects.json`: its repo, branch, local clone path, install and build
-commands, the folder the build writes to, and the folder name to publish it under.
+Add an entry to `projects.json`: its repo, `git_ref`, local clone path, install and build
+commands (both optional), the folder the build writes to (`.` for plain static files),
+and the folder name to publish it under.
+
+`git_ref` is a branch to deploy the latest work (Yoshi uses `master`), or a tag to pin
+a version (Viktory Calc uses `live-2016`). To promote a new version of a pinned project,
+tag it in its repo and change `git_ref` here.
 Then link to it from `index.html` if you want.
 
 ## One-time setup for GitHub Actions

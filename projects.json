@@ -1,15 +1,23 @@
 {
-  "_about": "Projects that live in their own repos and get built into this site on every deploy. Each one is cloned at the latest commit of its branch, built, and published under publish_path.",
+  "_about": "Projects that live in their own repos and get built into this site on every deploy. Each one is cloned at git_ref (a branch for the latest work, or a tag to pin a version), built, and published under publish_path. install_command and build_command are optional; use build_output_folder \".\" for a plain static project.",
   "projects": [
     {
       "name": "Yoshi vs. Monsters",
       "git_url": "https://github.com/BenSchomp/Yoshi-vs-Monsters.git",
-      "branch": "master",
+      "git_ref": "master",
       "local_clone_path": "~/git/games/Yoshi-vs-Monsters",
       "install_command": "python3 -m pip install --quiet pygbag==0.9.3",
       "build_command": "python3 -m pygbag --build --ume_block 0 --template web-template.tmpl --title \"Yoshi vs. Monsters\" .",
       "build_output_folder": "build/web",
       "publish_path": "yoshi"
+    },
+    {
+      "name": "Viktory Calc",
+      "git_url": "https://github.com/BenSchomp/Viktory-Calc.git",
+      "git_ref": "live-2016",
+      "local_clone_path": "~/git/projects/Viktory-Calc",
+      "build_output_folder": ".",
+      "publish_path": "viktory-calc"
     }
   ]
 }
