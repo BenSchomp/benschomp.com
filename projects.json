@@ -18,6 +18,14 @@
       "local_clone_path": "~/git/projects/Viktory-Calc",
       "build_output_folder": ".",
       "publish_path": "viktory-calc"
+    },
+    {
+      "name": "Campus Conquest",
+      "git_url": "https://github.com/BenSchomp/CampusConquest.git",
+      "git_ref": "main",
+      "local_clone_path": "~/git/games/CampusConquest",
+      "build_output_folder": "web",
+      "publish_path": "campus-conquest"
     }
   ]
 }
