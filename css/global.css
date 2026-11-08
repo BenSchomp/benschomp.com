@@ -75,4 +75,20 @@ a:active { color: #fffdd0; text-decoration: none; }
     color: #3D3916;
 }
 
+.section-heading {
+  font-weight: bold;
+  margin-top: 0.75em;
+}
 
+.link-columns {
+  display: flex;
+  gap: 3em;
+}
+
+.link-columns ul {
+  margin-top: 0.5em;
+}
+
+.link-columns .section-heading {
+  margin-top: 0.5em;
+}
