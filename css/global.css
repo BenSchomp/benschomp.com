@@ -82,7 +82,8 @@ a:active { color: #fffdd0; text-decoration: none; }
 
 .link-columns {
   display: flex;
-  gap: 3em;
+  flex-wrap: wrap; /* on a narrow phone, Projects drops below instead of squeezing */
+  column-gap: 3em;
 }
 
 .link-columns ul {
