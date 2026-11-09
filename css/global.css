@@ -93,3 +93,9 @@ a:active { color: #fffdd0; text-decoration: none; }
 .link-columns .section-heading {
   margin-top: 0.5em;
 }
+
+/* business summary sits on its own line, indented halfway to a nested list item (no bullet) */
+.summary {
+  display: block;
+  padding-left: 20px;
+}
