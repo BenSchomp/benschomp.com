@@ -98,4 +98,6 @@ a:active { color: #fffdd0; text-decoration: none; }
 .summary {
   display: block;
   padding-left: 20px;
+  font-size: 0.85em;
+  opacity: 0.8;
 }
